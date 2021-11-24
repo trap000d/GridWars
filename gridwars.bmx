@@ -50,6 +50,7 @@ Global valid:Int = True
 Global mxaim# = 0
 Global myaim# = 0
 
+CheckConfDir()
 LoadConfig() ' see control.bmx for more global settings
 LoadColours()
 GetGfxModes()
@@ -3524,7 +3525,12 @@ Type score
 	Function LoadScores()
 		Local tb:Int
 		Local t:Int
-		Local fh:TStream = OpenFile("hiscores.dat")
+		Local hdir$, fn$
+
+		hdir$=GetUserHomeDir()
+		fn$ = hdir+"/.config/gridwars/hiscores.dat"
+
+		Local fh:TStream = OpenFile(fn)
 		If fh = Null
 			' if score file not found use the default
 			score.SetDefault()
@@ -3582,7 +3588,12 @@ Type score
 		' write the scores out to file
 		Local tb:Int
 		Local t:Int
-		Local fh:TStream = WriteFile("hiscores.dat")
+		Local hdir$, fn$
+
+		hdir$=GetUserHomeDir()
+		fn$ = hdir+"/.config/gridwars/hiscores.dat"
+
+		Local fh:TStream = WriteFile(fn)
 		If fh <> Null
 			For tb = 0 To 2
 				For t = 0 To 9
